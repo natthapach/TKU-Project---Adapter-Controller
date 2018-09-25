@@ -1,8 +1,8 @@
 from client import Client
-from ui import ConsoleUI, TkinterUI
+from ui import ConsoleUI, TkinterUI, TkinterRawUI
 
 if __name__ == "__main__" :
   client = Client()
   
-  ui = TkinterUI(client.send)
+  ui = TkinterRawUI(client.send)
   ui.show()
