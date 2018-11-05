@@ -1,13 +1,18 @@
 import socket
 import pickle
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 8081
+HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
+PORT = 8085        # Port to listen on (non-privileged ports are > 1023)
 
-sock = socket.socket(socket.AF_INET,  # internet
-                socket.SOCK_DGRAM)  # UDP
-sock.bind((UDP_IP, UDP_PORT))
-
-
-data, addr = sock.recvfrom(1024)    # buffer size (1024 byte)
-print("recived message:", data.decode())
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    conn, addr = s.accept()
+    with conn:
+        print('Connected by', addr)
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            print("receive", data.decode())
+            conn.sendall(data)
