@@ -121,13 +121,13 @@ class TkinterRawUI(TkinterUI) :
 
   def _onclickDefault(self, e):
     matrix = [
-      [150, 461, 88],
-      [204, 361, 97],
-      [265, 336, 95],
-      [306, 350, 90],
-      [337, 388, 85],
-      [287, 557, 0],
-      [-1.57, 0, 0]
+      [1.66495, -0.72638, 2.26352],
+      [0.64208, -0.73018, 3.78041],
+      [-0.01501, -0.91675, 3.84080],
+      [-0.54637, -0.99185, 3.52454],
+      [-1.2117, -0.91750, 3.05082],
+      [0, -0.01834, 1.27129],
+      [0, 0, 0]
     ]
     for i in range(len(matrix)) :
       for j in range(3) :
@@ -135,7 +135,7 @@ class TkinterRawUI(TkinterUI) :
         self.entries[i][j].insert(0, str(matrix[i][j]))
 
   def _onclikcSend(self, e) :
-    matrix = [ [float(e.get())*self.factor for e in r] for r in self.entries[:-1]]
+    matrix = [ [float(e.get()) for e in r] for r in self.entries[:-1]]
     matrix.append([float(e.get()) for e in self.entries[-1]])
     print(matrix)
     self.send_callback(matrix)
