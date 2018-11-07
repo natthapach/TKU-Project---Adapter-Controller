@@ -1,8 +1,20 @@
 from client import Client
 from ui import ConsoleUI, TkinterUI, TkinterRawUI
+from receiver import Receiver
+from sender import Sender
+from adapter import Adapter
+
+adapter = Adapter()
+sender = Sender()
+
+def onReceiveData(data) :
+  data = adapter.adaptData(data)
+  sender.send(data)
 
 if __name__ == "__main__" :
-  client = Client()
+  receiver = Receiver(onReceiveData)
+  receiver.start()
+  # client = Client()
   
-  ui = TkinterRawUI(client.send)
-  ui.show()
+  # ui = TkinterRawUI(client.send)
+  # ui.show()
