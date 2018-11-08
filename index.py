@@ -8,7 +8,7 @@ adapter = Adapter()
 sender = Sender()
 
 def onReceiveData(data) :
-  data = adapter.adaptData(data)
+  data = adapter.adaptDataSet(data)
   sender.send(data)
 
 if __name__ == "__main__" :

@@ -1,42 +1,38 @@
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import time
 
-fig = plt.figure()
-ax1 = fig.add_subplot(1,1,1)
+f = open("log.csv", "r")
+data_set = [[[0], [0], [0]],  # thumb
+        [[0], [0], [0]],  # index
+        [[0], [0], [0]],  # middle
+        [[0], [0], [0]],  # ring
+        [[0], [0], [0]],  # little
+        [[0], [0], [0]]]  # palm
+for line in f :
+    data = [[0, 0, 0],  # thumb
+        [0, 0, 0],  # index
+        [0, 0, 0],  # middle
+        [0, 0, 0],  # ring
+        [0, 0, 0],  # little
+        [0, 0, 0]]  # palm
+    data_raw = line.split(",")
+    for i in range(6) :
+        for j in range(3) :
+            d = float(data_raw[i*3 + j])
+            if (j == 2 and d != 0) :
+                d -= 500
 
-def animate(i):
-    pullData = open("log.csv","r").read()
-    dataArray = pullData.split('\n')
-    dataArray = dataArray[-50:]
-    px = 0
-    py = 0
-    pz = 0
-    order = []
-    xvalue = []
-    yvalue = []
-    zvalue = []
-    i = 0
-    for eachLine in dataArray:
-        if len(eachLine)>1:
-            line = eachLine.split(',')
-            x = float(line[0])
-            y = float(line[1])
-            z = float(line[2])
-            dx = x - px
-            dy = y - py
-            dz = z - pz
-            px = x
-            py = y
-            pz = z
-            order.append(i)
-            xvalue.append(dx)
-            yvalue.append(dy)
-            zvalue.append(dz)
-            i += 1
-    ax1.clear()
-    ax1.plot(order,xvalue)
-    ax1.plot(order,yvalue)
-    ax1.plot(order,zvalue)
-ani = animation.FuncAnimation(fig, animate, interval=1000)
+            data_set[i][j].append(d)
+f.close()
+
+axs = [0]*6
+ax_names = ["Thumb", "Index", "Middle", "Ring", "Little", "Palm"]
+for i in range(6) :
+    axs[i] = plt.subplot(2, 3, i+1)
+    axs[i].set_title(ax_names[i])
+    legends = ["x", "y", "z"]
+    for j in range(3) :
+        l, = axs[i].plot(data_set[i][j])
+        l.set_label(legends[j])
+    axs[i].legend()
+
 plt.show()
