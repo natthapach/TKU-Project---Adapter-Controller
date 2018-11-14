@@ -12,9 +12,9 @@ def onReceiveData(data) :
   sender.send(data)
 
 if __name__ == "__main__" :
-  # receiver = Receiver(onReceiveData)
-  # receiver.start()
-  client = Client()
+  receiver = Receiver(onReceiveData)
+  receiver.start()
+  # client = Client()
   
-  ui = TkinterRawUI(onReceiveData)
-  ui.show()
+  # ui = TkinterRawUI(onReceiveData)
+  # ui.show()
