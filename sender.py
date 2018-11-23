@@ -10,8 +10,8 @@ class Sender:
 
   def send(self, data):
     data_norm = [0]*7
-    for i in range(6) :
+    for i in range(7) :
         data_norm[i] = data[i]
-    data_norm[6] = (0.0, 0.0, 0.0)
+    # data_norm[6] = (0.0, 0.0, 0.0)
     print(data_norm)
     self.socket.sendto(pickle.dumps(data_norm),self.serv_addr)

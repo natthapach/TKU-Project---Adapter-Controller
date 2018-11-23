@@ -137,13 +137,13 @@ class TkinterRawUI(TkinterUI) :
   def _onclikcSend(self, e) :
     matrix = [ [float(e.get()) for e in r] for r in self.entries[:-1]]
     matrix.append([float(e.get()) for e in self.entries[-1]])
-    print(matrix)
+    # print(matrix)
     self.send_callback(matrix)
   
   def _sendEntry(self) :
     matrix = [ [float(e.get())*self.factor for e in r] for r in self.entries[:-1]]
     matrix.append([float(e.get()) for e in self.entries[-1]])
-    print(matrix)
+    # print(matrix)
     self.send_callback(matrix)
 
   def _streamCallback(self, index=0) :
